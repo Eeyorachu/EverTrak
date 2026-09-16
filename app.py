@@ -168,6 +168,18 @@ def del_sub(i):
             c.execute("DELETE FROM subs WHERE id=%s",(i,))
     return "",204
 
+
+@app.delete("/api/bids/<int:i>")
+@auth
+def del_bid(i):
+    with db() as c:
+        b=c.execute("SELECT * FROM bids WHERE id=%s",(i,)).fetchone()
+        if not b: return jsonify(error="not found"),404
+        c.execute("INSERT INTO history(bid_id,bid_number,action,details) VALUES(NULL,%s,%s,%s)",
+                  (b["bid_number"],"Job deleted",f'{b["project_name"]} was permanently deleted'))
+        c.execute("DELETE FROM bids WHERE id=%s",(i,))
+    return "",204
+
 @app.get("/api/history")
 @auth
 def history():

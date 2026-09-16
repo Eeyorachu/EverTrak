@@ -30,3 +30,13 @@ Anyone with the shared password can access all bid data and change history, so c
 
 UPDATES
 Push future code changes to the connected Git repository; Render can redeploy from it.
+
+
+THIS UPDATE ADDS
+- Delete Job in the job detail screen, with confirmation.
+- Deleted jobs remove attached subtrades; the deletion remains in Change History.
+- Bid number colors: blue = active/not received; green = awarded/received; red = failed.
+- Subtrade Trade/Type label: red until status is Bid Received; green when Bid Received.
+
+UPDATE AN EXISTING RENDER DEPLOYMENT
+Replace the matching files in your existing private GitHub repository with these files, commit/push, and Render should redeploy automatically. Your PostgreSQL database is separate and is not overwritten by this code update.
