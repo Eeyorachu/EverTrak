@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: evertrak
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: evertrak-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: APP_PASSWORD
+        sync: false
+
+databases:
+  - name: evertrak-db
+    plan: free
+    databaseName: evertrak
+    user: evertrak
